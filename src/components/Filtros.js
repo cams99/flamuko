@@ -1,0 +1,161 @@
+import React, { Component } from 'react'
+import Linea from './Linea';
+import Estado from './Estado';
+
+class Filtros extends Component {
+    state = {  
+        toogleLineas: {
+            mostrar: false,
+            mensaje: "más"
+        },
+        toogleEstados: {
+            mostrar: false,
+            mensaje: "más"
+        },
+        lineas: [],
+        estado: ''
+    }
+
+    obtenerIdLinea = (idLinea) => {
+        this.props.filtrosLinea(idLinea);
+        var linea = this.props.lineas[idLinea - 1].nombre
+        var lineas;
+        if (this.state.lineas.length === 0) {
+            lineas = [...this.state.lineas, linea]
+            this.setState({
+                lineas
+            })
+        } else {
+            if (this.state.lineas.indexOf(linea) === -1) {
+                lineas = [...this.state.lineas, linea]
+                this.setState({
+                    lineas
+                })
+            }
+        }
+    }
+    obtenerIdEstado = (idEstado) => {
+        this.props.filtrosEstado(idEstado)
+        var estado = this.props.estados[idEstado - 1].nombre
+        this.setState({
+            estado
+        })
+    } 
+    toogleLineas = () => {
+        if (this.state.toogleLineas.mostrar) {
+            this.setState({
+                toogleLineas: {
+                    mostrar: false,
+                    mensaje: "más"
+                }
+            })
+        } else {
+            this.setState({
+                toogleLineas: {
+                    mostrar: true,
+                    mensaje: "menos"
+                }
+            })
+        }
+    }
+    toogleEstados = () => {
+        if (this.state.toogleEstados.mostrar) {
+            this.setState({
+                toogleEstados: {
+                    mostrar: false,
+                    mensaje: "más"
+                }
+            })
+        } else {
+            this.setState({
+                toogleEstados: {
+                    mostrar: true,
+                    mensaje: "menos"
+                }
+            })
+        }
+    }
+    render() { 
+        return (  
+            <div className="col-12">
+			<div className="filters-area">
+				<h3>Línea</h3>
+				<div id="current-filters-linea" className="current-filters">
+                    {
+                        (this.state.lineas.length > 0)
+                        ?   this.state.lineas.map((linea, key) => (
+                                <button key={key} className="active-filter">{linea}</button>
+                            ))
+                        :   ""
+                    }
+				</div>
+                <ul id="linea" className="filters">
+                    {(this.props.lineas.slice(0, 4)).map(linea => (
+                        <Linea 
+                            linea={linea}
+                            key={linea.id}
+                            idLinea={this.obtenerIdLinea}
+                        />
+                    ))}
+                    <div className="collapse multi-collapse" id="CollapseLineas">
+                        {(this.props.lineas.slice(4, 24)).map(linea => (
+                            <Linea 
+                                linea={linea}
+                                key={linea.id}
+                                idLinea={this.obtenerIdLinea}
+                            />
+                        ))}
+                    </div>
+                    <a  
+                        onClick={this.toogleLineas}
+                        className="mostrar"
+                        data-toggle="collapse" 
+                        href="#CollapseLineas" 
+                        role="button" 
+                        aria-expanded="false" 
+                        aria-controls="CollapseLineas"
+                    >
+                        Ver {this.state.toogleLineas.mensaje}
+                    </a>
+				</ul>
+			</div>
+			<div className="filters-area">
+				<h3>Ubicación</h3>
+				<div id="current-filters-ubicacion" className="current-filters">
+				</div>
+				<ul id="ubicacion" className="filters">
+					{(this.props.estados.slice(0, 4)).map(estado => (
+                        <Estado 
+                            estado={estado}
+                            key={estado.id}
+                            idEstado={this.obtenerIdEstado}
+                        />
+                    ))}
+                    <div className="collapse multi-collapse" id="CollapseEstados">
+                        {(this.props.estados.slice(4, 24)).map(estado => (
+                            <Estado 
+                                estado={estado}
+                                key={estado.id}
+                                idEstado={this.obtenerIdEstado}
+                            />
+                        ))}
+                    </div>
+                    <a  
+                        onClick={this.toogleEstados}
+                        className="mostrar"
+                        data-toggle="collapse" 
+                        href="#CollapseEstados" 
+                        role="button" 
+                        aria-expanded="false" 
+                        aria-controls="CollapseEstados"
+                    >
+                        Ver {this.state.toogleEstados.mensaje}
+                    </a>
+				</ul>
+			</div>
+		</div>
+        );
+    }
+}
+
+export default Filtros;
