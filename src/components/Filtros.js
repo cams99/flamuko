@@ -75,6 +75,9 @@ class Filtros extends Component {
             })
         }
     }
+    borrarFiltro = (e) => {
+        console.log(e.currentTarget)
+    }
     render() { 
         return (  
             <div className="col-12">
@@ -84,7 +87,7 @@ class Filtros extends Component {
                     {
                         (this.state.lineas.length > 0)
                         ?   this.state.lineas.map((linea, key) => (
-                                <button key={key} className="active-filter">{linea}</button>
+                                <button type="submit" key={key} className="active-filter" onClick={this.borrarFiltro}>{linea}</button>
                             ))
                         :   ""
                     }
