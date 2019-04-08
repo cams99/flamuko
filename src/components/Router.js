@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { isObject, isNull } from 'util';
 import axios from 'axios';
 
@@ -99,51 +98,42 @@ class Router extends Component {
     render() { 
         return (  
             <BrowserRouter>
-                <TransitionGroup>
-                    <CSSTransition 
-                        in={true}
-                        appear={true}
-                        timeout={500}
-                        classNames="fade"
-                    >
-                        <React.Fragment>
-                            <div id="header">
-                                <Header 
-                                    obtenerBusqueda={this.obtenerBusqueda}
-                                    busqueda={this.state.busqueda}
+                <React.Fragment>
+                    <div id="header">
+                        <Header 
+                            obtenerBusqueda={this.obtenerBusqueda}
+                            busqueda={this.state.busqueda}
+                        />
+                    </div>
+                    <Switch>
+                        <Route exact path="/reacttest/build/" render={() => {
+                            return (
+                                <React.Fragment>
+                                    {
+                                        (this.state.cargando)
+                                            ?   <Cargando />
+                                            :   <Home 
+                                                    resultados={this.state.resultados}   
+                                                    respuesta={this.state.respuesta}
+                                                    obtenerBusqueda={this.obtenerBusqueda}                           
+                                                />
+                                    }
+                                </React.Fragment>
+                            )
+                        }} />
+                        <Route exact path="/reacttest/build/detail/:idProducto" render={(props) => {
+                            const idProducto = props.location.pathname.replace('/reacttest/build/detail/', '')
+                            return (
+                                <SingleProducto 
+                                    idProducto={idProducto}
+                                    lineas={this.state.lineas}
+                                    estados={this.state.estados}
                                 />
-                            </div>
-                            <Switch>
-                                <Route exact path="/" render={() => {
-                                    return (
-                                        <React.Fragment>
-                                            {
-                                                (this.state.cargando)
-                                                    ?   <Cargando />
-                                                    :   <Home 
-                                                            resultados={this.state.resultados}   
-                                                            respuesta={this.state.respuesta}
-                                                            obtenerBusqueda={this.obtenerBusqueda}                           
-                                                        />
-                                            }
-                                        </React.Fragment>
-                                    )
-                                }} />
-                                <Route exact path="/detail/:idProducto" render={(props) => {
-                                    const idProducto = props.location.pathname.replace('/detail/', '')
-                                    return (
-                                        <SingleProducto 
-                                            idProducto={idProducto}
-                                            lineas={this.state.lineas}
-                                            estados={this.state.estados}
-                                        />
-                                    )
-                                }} />
-                            </Switch>
-                            <Footer />
-                        </React.Fragment>
-                    </CSSTransition>
-                </TransitionGroup>
+                            )
+                        }} />
+                    </Switch>
+                    <Footer />
+                </React.Fragment>
             </BrowserRouter>
         );
     }
