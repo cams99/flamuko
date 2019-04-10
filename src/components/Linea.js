@@ -8,7 +8,7 @@ const Linea = (props) => {
     const nombre = props.linea.nombre;
     return (  
         <li>
-            <button href="#" onClick={handleClick}>
+            <button onClick={handleClick}>
                 {nombre}    
             </button>
         </li>

@@ -17,7 +17,9 @@ class Filtros extends Component {
     }
 
     obtenerIdLinea = (idLinea) => {
-        this.props.filtrosLinea(idLinea);
+        if(document.location.pathname === "/") {
+            this.props.filtrosLinea(idLinea);
+        }
         var linea = this.props.lineas[idLinea - 1].nombre
         var lineas;
         if (this.state.lineas.length === 0) {
@@ -35,7 +37,9 @@ class Filtros extends Component {
         }
     }
     obtenerIdEstado = (idEstado) => {
-        this.props.filtrosEstado(idEstado)
+        if(document.location.pathname === "/") {
+            this.props.filtrosEstado(idEstado)
+        }
         var estado = this.props.estados[idEstado - 1].nombre
         this.setState({
             estado
@@ -76,7 +80,16 @@ class Filtros extends Component {
         }
     }
     borrarFiltro = (e) => {
-        console.log(e.currentTarget)
+        var borrarLinea = e.currentTarget.value;
+        var lineas = [...this.state.lineas];
+        var indiceLinea = lineas.indexOf(borrarLinea);
+        lineas.splice(indiceLinea, 1)
+        this.setState({
+            lineas
+        })
+        if (document.location.pathname === "/") {
+            this.props.borrarFiltro(this.state.lineas)
+        }
     }
     render() { 
         return (  
@@ -87,7 +100,7 @@ class Filtros extends Component {
                     {
                         (this.state.lineas.length > 0)
                         ?   this.state.lineas.map((linea, key) => (
-                                <button type="submit" key={key} className="active-filter" onClick={this.borrarFiltro}>{linea}</button>
+                                <button type="submit" key={key} className="active-filter" onClick={this.borrarFiltro} value={linea}>{linea}</button>
                             ))
                         :   ""
                     }

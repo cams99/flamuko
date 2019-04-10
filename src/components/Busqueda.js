@@ -5,7 +5,8 @@ import Filtros from './Filtros';
 class Busqueda extends Component {
   state = {  
     linea: [],
-    estado: ""
+    estado: "",
+    filtros: true
   }
   filtrosLinea = (nuevalinea) => {
     var lineas;
@@ -29,13 +30,32 @@ class Busqueda extends Component {
       estado: idEstado
     })
   }
+  borrarFiltro = (nuevosFiltros) => {
+    var contador = 0;
+    console.log(nuevosFiltros)
+    if (nuevosFiltros.length === 1) {
+      contador++;
+    }
+    if (nuevosFiltros.length === 0) {
+      this.setState({
+        linea: nuevosFiltros,
+        filtros: false
+      })
+    } else {
+      this.setState({
+        linea: nuevosFiltros,
+        filtros: true
+      })
+    }
+  }
   render() { 
     const { productos, lineas, estados, busqueda } = this.props.resultados
     let filtradoLinea = [];
     let filtradoEstado = [];
     let resultado = [];
-    
+    console.log(this.state.linea.length)
     if (this.state.estado && this.state.linea.length === 0) {
+      console.log(1)
       filtradoEstado.push(productos.filter(producto => (
         producto.estado.indexOf(this.state.estado) !== -1
       )))
@@ -43,10 +63,12 @@ class Busqueda extends Component {
         resultado = resultado.concat(filtro)
       ))
     } else if (this.state.estado && this.state.linea.length > 0) {
+      console.log(2)
       resultado = resultado.filter(filtro => (
         filtro.estado.indexOf(this.state.estado) !== -1
       ))
     } else if (!(this.state.estado) && this.state.linea.length > 0) {
+      console.log(3)
       this.state.linea.map(linea => (
         filtradoLinea.push(productos.filter(producto => (
           producto.linea.indexOf(linea) !== -1
@@ -55,9 +77,15 @@ class Busqueda extends Component {
       filtradoLinea.map(filtro => (
         resultado = resultado.concat(filtro)
       ))
-    } else {
+    } else if (!(this.state.estado && this.state.linea.length === 0)) {
+      console.log(4)
       resultado = productos
     }
+
+    if(!this.state.filtros) {
+      resultado = productos;
+    }
+
     console.log(resultado)
     const resultados =  <div className="App slide">
                           <div className="main">
@@ -74,6 +102,7 @@ class Busqueda extends Component {
                                 estados={estados}
                                 filtrosLinea={this.filtrosLinea}
                                 filtrosEstado={this.filtrosEstado}
+                                borrarFiltro={this.borrarFiltro}
                               />
                           </div>
                         </div>
