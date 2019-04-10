@@ -10,50 +10,67 @@ class Busqueda extends Component {
   }
   filtrosLinea = (nuevalinea) => {
     var lineas;
+    console.log(nuevalinea)
     if (this.state.linea.length === 0) {
       lineas = [...this.state.linea, nuevalinea]
       this.setState({
-        linea: lineas
+        linea: lineas,
+        filtros: true
       })
-    } else {
-      if (this.state.linea.indexOf(nuevalinea) === -1) {
+    } else if (this.state.linea.indexOf(nuevalinea) === -1) {
         lineas = [...this.state.linea, nuevalinea]
         this.setState({
-          linea: lineas
+          linea: lineas,
+          filtros: true
         })
-      }
     }
   }
+
+  
   filtrosEstado = (idEstado) => {
     // var estado = this.props.resultados.estados[idEstado - 1].nombre
     this.setState({
       estado: idEstado
-    })
+    })  
   }
-  borrarFiltro = (nuevosFiltros) => {
-    var contador = 0;
-    console.log(nuevosFiltros)
-    if (nuevosFiltros.length === 1) {
-      contador++;
-    }
-    if (nuevosFiltros.length === 0) {
+  borrarFiltro = (borrarFiltros) => {
+    // var contador = 0;
+    console.log(borrarFiltros)
+    var filtrosActuales = [...this.state.linea]
+    var filtrosNuevos = filtrosActuales.filter(filtro => (filtro !== borrarFiltros))
+    console.log(filtrosNuevos)
+    this.setState({
+      linea: filtrosNuevos
+    })
+    if (filtrosNuevos.some(Number)) {
       this.setState({
-        linea: nuevosFiltros,
-        filtros: false
+        filtros: true
       })
     } else {
       this.setState({
-        linea: nuevosFiltros,
-        filtros: true
+        filtros: false
       })
     }
+    // if (nuevosFiltros.length === 1) {
+    //   this.setState({
+    //     linea: nuevosFiltros,
+    //     filtros: false
+    //   })
+    // } else {
+    // this.setState({
+    //   linea: nuevosFiltros,
+    //   filtros: true
+    // })
+    // }
+    // if (contador === 0 && nuevosFiltros.length === 1) {
+    //   contador++;
+    // }
   }
   render() { 
     const { productos, lineas, estados, busqueda } = this.props.resultados
     let filtradoLinea = [];
     let filtradoEstado = [];
     let resultado = [];
-    console.log(this.state.linea.length)
     if (this.state.estado && this.state.linea.length === 0) {
       console.log(1)
       filtradoEstado.push(productos.filter(producto => (
@@ -77,7 +94,7 @@ class Busqueda extends Component {
       filtradoLinea.map(filtro => (
         resultado = resultado.concat(filtro)
       ))
-    } else if (!(this.state.estado && this.state.linea.length === 0)) {
+    } else {
       console.log(4)
       resultado = productos
     }

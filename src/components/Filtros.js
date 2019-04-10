@@ -81,6 +81,9 @@ class Filtros extends Component {
     }
     borrarFiltro = (e) => {
         var borrarLinea = e.currentTarget.value;
+        var linea = this.props.lineas.filter(linea => {
+            if (linea.nombre === borrarLinea) return linea
+        })
         var lineas = [...this.state.lineas];
         var indiceLinea = lineas.indexOf(borrarLinea);
         lineas.splice(indiceLinea, 1)
@@ -88,7 +91,7 @@ class Filtros extends Component {
             lineas
         })
         if (document.location.pathname === "/") {
-            this.props.borrarFiltro(this.state.lineas)
+            this.props.borrarFiltro(linea[0].id)
         }
     }
     render() { 
