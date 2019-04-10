@@ -24,7 +24,7 @@ class Busqueda extends Component {
           filtros: true
         })
     }
-  }
+  } 
 
   
   filtrosEstado = (idEstado) => {
