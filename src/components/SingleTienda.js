@@ -1,16 +1,8 @@
 import React from 'react';
-import Swal from 'sweetalert2';
 
 const SingleTienda = (props) => {
     const {valor} = props.tienda
     const {nombre, direccion, telefono, telefono1} = props.tienda.tienda[0]
-    const handleClick = () => {
-        Swal.fire(
-            'La busqueda debe contener al menos 3 caracteres',
-            '',
-            'warning'
-        )   
-    }
     // switch (true) {
     //     case valor > EXISTENCIA_NIVEL_MEDIO:
     //         valor = 'high';
@@ -59,8 +51,8 @@ const SingleTienda = (props) => {
             <div className="text-right">
             {
                 (is_cellphone)
-                    ?   <a href={mensaje} onClick={handleClick} target="_blank" rel="noopener noreferrer" className="call-button"><i className="fa fa-whatsapp"></i> Enviar Mensaje</a>
-                    :   <a href={llamar} onClick={handleClick} className="call-button"><i className="fa fa-phone-volume"></i> <span> Llamar </span> </a> 
+                    ?   <a href={mensaje} target="_blank" rel="noopener noreferrer" className="call-button"><i className="fa fa-whatsapp"></i> Enviar Mensaje</a>
+                    :   <a href={llamar} className="call-button"><i className="fa fa-phone-volume"></i> <span> Llamar </span> </a> 
             }
             <br/>
             </div>
