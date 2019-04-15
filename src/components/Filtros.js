@@ -17,7 +17,7 @@ class Filtros extends Component {
     }
 
     obtenerIdLinea = (idLinea) => {
-        if(document.location.pathname === "/reacttest/build/") {
+        if(document.location.pathname === "/") {
             this.props.filtrosLinea(idLinea);
         }
         var linea = this.props.lineas[idLinea - 1].nombre
@@ -37,7 +37,7 @@ class Filtros extends Component {
         }
     }
     obtenerIdEstado = (idEstado) => {
-        if(document.location.pathname === "/reacttest/build/") {
+        if(document.location.pathname === "/") {
             this.props.filtrosEstado(idEstado)
         }
         var estado = this.props.estados[idEstado - 1].nombre
@@ -90,7 +90,7 @@ class Filtros extends Component {
         this.setState({
             lineas
         })
-        if (document.location.pathname === "/reacttest/build/") {
+        if (document.location.pathname === "/") {
             this.props.borrarFiltro(linea[0].id)
         }
     }
