@@ -93,6 +93,7 @@ class Router extends Component {
                     },
                     cargando: false
                 })
+                console.log(this.state.resultados)
             })
     }
     render() { 

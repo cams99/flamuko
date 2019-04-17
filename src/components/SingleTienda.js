@@ -1,19 +1,60 @@
 import React, { Component } from 'react'
 import Login from './Login';
+import axios from 'axios';
 
 class SingleTienda extends Component {
     state = {  
-        login: false
+        login: false, 
+        estado: "",
+        email: "",
+        sesion: ""
+    }
+    componentDidMount() {
+        this.obtenerCookies()
+    }
+    componentDidUpdate() {
+        this.obtenerCookies()
+    }
+    obtenerCookies = () => {
+        var cookies = [];
+        var la_cookie = document.cookie.split("; ")
+        for (var i=0; i<la_cookie.length; i++) {
+            var mi_cookie = la_cookie[i].split("=")[1]
+            cookies.push(mi_cookie)
+        }
+        if (cookies[2] !== this.state.estado) {
+            this.setState({
+                sesion: cookies[0],
+                email: cookies[1],
+                estado: cookies[2]
+            })
+        }
     }
     handleClick = () => {
-        this.setState({
-            login: true
-        })
+        if (this.state.sesion === "activa" && this.state.estado === "login") {
+            console.log(false)
+            this.setState({
+                login: false
+            })
+            this.busquedaEnSesion()
+        } else {
+            console.log(true)
+            this.setState({
+                login: true
+            })
+        }
     }
     login = (estado) => {
         this.setState({
             login: estado
         })
+    }
+    busquedaEnSesion = () => {
+        var busqueda = {
+            email: this.state.email,
+            busqueda: this.props.producto.nombre
+        }
+        console.log(busqueda)
     }
     render() { 
         const {valor} = this.props.tienda
@@ -66,15 +107,19 @@ class SingleTienda extends Component {
                     <div className="text-right">
                     {
                         (is_cellphone)
-                        ?   <button onClick={this.handleClick} target="_blank" rel="noopener noreferrer" className="call-button"><i className="fa fa-whatsapp"></i> Enviar Mensaje</button>
-                        :   <button onClick={this.handleClick} className="call-button"><i className="fa fa-phone-volume"></i> <span> Llamar </span> </button> 
+                            ?   (this.state.sesion === "activa" && this.state.estado === "login") 
+                                ?   <a href={mensaje} onClick={this.handleClick} target="_blank"  rel="noopener noreferrer" className="call-button"><i className="fa fa-whatsapp"></i> Enviar Mensaje</a>
+                                :   <button onClick={this.handleClick} target="_blank" rel="noopener noreferrer" className="call-button"><i className="fa fa-whatsapp"></i> Enviar Mensaje</button>
+                            :   (this.state.sesion === "activa" && this.state.estado === "login")
+                                ?   <a href={llamar} onClick={this.handleClick} className="call-button"><i className="fa fa-phone-volume"></i> <span> Llamar </span> </a>
+                                :   <button onClick={this.handleClick} className="call-button"><i className="fa fa-phone-volume"></i> <span> Llamar </span> </button> 
                     }
                     <br/>
                     </div>
                     <hr/>
                 </div>
                 {
-                    (this.state.login)
+                    (this.state.login && this.state.estado !== "login")
                         ?   <div className="login-form">
                                 <Login 
                                     producto={this.props.producto.nombre}

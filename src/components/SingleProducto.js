@@ -88,8 +88,8 @@ class SingleProducto extends Component {
                                     <div className="row product-display">
                                         <div className="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                             <h4 className="nombre-producto">{nombre}</h4>
-                                            <div className="card result-card-detail">					
-                                                <img src={flamuko} alt={nombre}/>
+                                            <div className="card result-card-detail div-img">					
+                                                <img className="img-producto" src={flamuko} alt={nombre}/>
                                             </div>
                                         </div>
                                         <SingleExistencia 
