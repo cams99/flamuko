@@ -60,11 +60,9 @@ class SingleProducto extends Component {
     }
 
     obtenerIdLinea = (linea) => {
-        console.log(linea)
     }
 
     obtenerIdEstado = (estado) => {
-        console.log(estado)
     }
     render() { 
         const {nombre} = this.state.producto
