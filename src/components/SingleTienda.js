@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import Login from './Login';
-import axios from 'axios';
 
 class SingleTienda extends Component {
     state = {  
@@ -32,13 +31,11 @@ class SingleTienda extends Component {
     }
     handleClick = () => {
         if (this.state.sesion === "activa" && this.state.estado === "login") {
-            console.log(false)
             this.setState({
                 login: false
             })
             this.busquedaEnSesion()
         } else {
-            console.log(true)
             this.setState({
                 login: true
             })
@@ -90,6 +87,8 @@ class SingleTienda extends Component {
                     break;
                 case '0426': 
                     is_cellphone = true; 
+                    break;
+                default:
                     break;
             }
 

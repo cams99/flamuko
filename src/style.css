@@ -307,10 +307,13 @@ a.call-button, a.call-button:link {
     border-radius: 24px;
     margin: 30px 0 20px;
 }
+button:focus {
+    outline: none;
+}
 .boton-margin {
     margin: 20px 0 20px;
 }
-.boton-acceder:hover {
+.boton-ingresar:hover {
     background: #005CA8;
     color: white;
     transition: .5s;

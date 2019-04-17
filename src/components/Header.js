@@ -14,7 +14,7 @@ class Header extends Component {
                 </div>
                 <div className="col-12 col-sm-12 col-md-9 form1 d-flex align-items-center">
                     {
-                        (this.props.busqueda || document.location.pathname !== "/") 
+                        (this.props.busqueda || document.location.pathname !== "/reacttest/build/") 
                         ?   <Buscador 
                                 busqueda={this.obtenerBusqueda}
                             />

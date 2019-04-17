@@ -10,7 +10,6 @@ class Busqueda extends Component {
   }
   filtrosLinea = (nuevalinea) => {
     var lineas;
-    console.log(nuevalinea)
     if (this.state.linea.length === 0) {
       lineas = [...this.state.linea, nuevalinea]
       this.setState({
@@ -35,10 +34,8 @@ class Busqueda extends Component {
   }
   borrarFiltro = (borrarFiltros) => {
     // var contador = 0;
-    console.log(borrarFiltros)
     var filtrosActuales = [...this.state.linea]
     var filtrosNuevos = filtrosActuales.filter(filtro => (filtro !== borrarFiltros))
-    console.log(filtrosNuevos)
     this.setState({
       linea: filtrosNuevos
     })
@@ -72,7 +69,6 @@ class Busqueda extends Component {
     let filtradoEstado = [];
     let resultado = [];
     if (this.state.estado && this.state.linea.length === 0) {
-      console.log(1)
       filtradoEstado.push(productos.filter(producto => (
         producto.estado.indexOf(this.state.estado) !== -1
       )))
@@ -80,12 +76,10 @@ class Busqueda extends Component {
         resultado = resultado.concat(filtro)
       ))
     } else if (this.state.estado && this.state.linea.length > 0) {
-      console.log(2)
       resultado = resultado.filter(filtro => (
         filtro.estado.indexOf(this.state.estado) !== -1
       ))
     } else if (!(this.state.estado) && this.state.linea.length > 0) {
-      console.log(3)
       this.state.linea.map(linea => (
         filtradoLinea.push(productos.filter(producto => (
           producto.linea.indexOf(linea) !== -1
@@ -95,7 +89,6 @@ class Busqueda extends Component {
         resultado = resultado.concat(filtro)
       ))
     } else {
-      console.log(4)
       resultado = productos
     }
 
@@ -103,7 +96,6 @@ class Busqueda extends Component {
       resultado = productos;
     }
 
-    console.log(resultado)
     const resultados =  <div className="App slide">
                           <div className="main">
                               <Productos 

@@ -7,13 +7,13 @@ class CheckLogin extends Component {
         this.props.login(login)
     }
     negarLogin = () => {
-        if (document.cookie != "") {
+        if (document.cookie !== "") {
                 var la_cookie = document.cookie.split("; ")
-                var fecha_fin = new Date
+                var fecha_fin = new Date()
                 fecha_fin.setDate(fecha_fin.getDate()-1)
                 for (var i=0; i<la_cookie.length; i++) {
                     var mi_cookie = la_cookie[i].split("=")[0]
-                    var cookie = document.cookie = mi_cookie + "=;expires=" + fecha_fin.toGMTString()
+                    document.cookie = mi_cookie + "=;expires=" + fecha_fin.toGMTString()
                 }
         }
         var login = true
