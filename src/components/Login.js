@@ -58,6 +58,10 @@ class Login extends Component {
         var login = false
         this.props.login(login)
     }
+    closeWindow = () => {
+        var login = false
+        this.props.login(login)
+    }
     render() { 
         var sesion = document.cookie.substr(7,7).replace("activa;", "activa");
         var indexEstado = document.cookie.indexOf("estado")
@@ -72,20 +76,22 @@ class Login extends Component {
                             />   
                         :   (this.state.registrado)
                                 ?   <div className="check-login">
-                                        <form onSubmit={this.iniciarSesion}>
-                                            <h2>Iniciar Sesión</h2>
-                                            <input required className="input-form" type="email" placeholder="Email" ref={this.emailRef} />                
-                                            <button type="submit" className="boton-acceder">Ingresar</button>   
+                                        <form className="row justify-content-center" onSubmit={this.iniciarSesion}>
+                                            <h2 className="col-4 offset-4">Iniciar Sesión</h2>
+                                            <div className="close-window col-1 offset-3"><i onClick={this.closeWindow}className="far fa-times-circle"></i></div>
+                                            <input required className="input-form" type="email" placeholder="Email" ref={this.emailRef} /><div className="w-100"></div>                 
+                                            <button type="submit" className="boton-ingresar boton-margin">Ingresar</button>   
                                         </form>
                                         <p>o <button onClick={this.toogleSesion} className="toogle-sesion">Registrarse</button></p>
                                     </div>
                                 :   <div className="check-login">
-                                        <form onSubmit={this.registrarUsuario}>
-                                            <h2>Regístrate</h2>
-                                            <input required className="input-form" type="text" placeholder="Nombre" ref={this.nombreRef} />                
-                                            <input required className="input-form" type="email" placeholder="Email" ref={this.emailRef} />                
-                                            <input required className="input-form" type="number" placeholder="Telefono" ref={this.telefonoRef} />   
-                                            <button type="submit" className="boton-acceder">Ingresar</button>   
+                                        <form className="row justify-content-center" onSubmit={this.registrarUsuario}>
+                                            <h2 className="col-4 offset-4">Regístrate</h2>
+                                            <div className="close-window col-1 offset-3"><i onClick={this.closeWindow}className="far fa-times-circle"></i></div>
+                                            <input required className="input-form" type="text" placeholder="Nombre" ref={this.nombreRef} /><div className="w-100"></div>                
+                                            <input required className="input-form" type="email" placeholder="Email" ref={this.emailRef} /><div className="w-100"></div>           
+                                            <input required className="input-form" type="number" placeholder="Telefono" ref={this.telefonoRef} /><div className="w-100"></div>   
+                                            <button type="submit" className="boton-ingresar">Ingresar</button><div className="w-100"></div>
                                             <div className="form-check">
                                                 <input type="checkbox" className="form-check-input" id="Check" defaultChecked />
                                                 <label className="form-check-label" htmlFor="Check">He leído y acepto los términos y condiciones de uso</label>
