@@ -17,7 +17,7 @@ class Filtros extends Component {
     }
 
     obtenerIdLinea = (idLinea) => {
-        if(document.location.pathname === "/reacttest/build/") {
+        if(document.location.pathname === "/") {
             this.props.filtrosLinea(idLinea);
         }
         var linea = this.props.lineas[idLinea - 1].nombre
@@ -37,7 +37,7 @@ class Filtros extends Component {
         }
     }
     obtenerIdEstado = (idEstado) => {
-        if(document.location.pathname === "/reacttest/build/") {
+        if(document.location.pathname === "/") {
             this.props.filtrosEstado(idEstado)
         }
         var estado = this.props.estados[idEstado - 1].nombre
@@ -90,9 +90,16 @@ class Filtros extends Component {
         this.setState({
             lineas
         })
-        if (document.location.pathname === "/reacttest/build/") {
+        if (document.location.pathname === "/") {
             this.props.borrarFiltro(linea[0].id)
         }
+    }
+    cerrarFiltros = () => {
+        document.getElementById('filtros').setAttribute('class', 'filtros slideout col-sm-3 col-lg-2');
+        setTimeout(() => {
+            document.getElementById('filtros').setAttribute('class', 'filtros col-sm-3 col-lg-2');
+            document.getElementById('besign-footer').setAttribute('class', '');
+        }, 1000);
     }
     render() { 
         return (  
@@ -171,6 +178,7 @@ class Filtros extends Component {
                         Ver {this.state.toogleEstados.mensaje}
                     </a>
 				</ul>
+                <button class="done-button" onClick={this.cerrarFiltros}>Listo</button>
 			</div>
 		</div>
         );

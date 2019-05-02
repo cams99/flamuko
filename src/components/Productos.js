@@ -86,7 +86,10 @@ class Productos extends Component {
         }
         return color;
     }
-
+    toogleFiltros = () => {
+        document.getElementById('filtros').setAttribute('class', 'filtros slidein col-sm-3 col-lg-2');
+        document.getElementById('besign-footer').setAttribute('class', 'none');
+    }
     render() { 
         const { busqueda } = this.props
         
@@ -129,9 +132,10 @@ class Productos extends Component {
         });
 
         return (  
-            <div className="col-12">
+            <React.Fragment>
                 <div className="row border-bottom resul1 align-items-center">
                     <h6>{productos.length} resultados para <span>{busqueda}</span></h6>
+                    <span className="toogle-button" onClick={this.toogleFiltros}>Aplicar Filtros  <i class="fas fa-bars"></i></span>
                 </div>				
                 <div className="row product-display">
                     {renderTodos}
@@ -156,7 +160,7 @@ class Productos extends Component {
                             </ul>
                         </nav>
                 }
-            </div>
+            </React.Fragment>
         );
     }
 }

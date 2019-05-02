@@ -1,21 +1,22 @@
-body {
+* {
+    padding: 0;
+    margin: 0;
     font-family: "Source Sans Pro";
 }
 
-.App {
+/* .App {
     display: grid;
-    grid-template-columns: 1fr 11fr;
+    grid-template-columns: 1fr 9fr;
     grid-template-areas: 
         'Filtros Main'
     ;
-    width: 100vw;
 }
 .filtros {
     grid-area: Filtros;
 }
 .main {
     grid-area: Main;
-}
+} */
 
 /* Header */
 #header {
@@ -23,7 +24,6 @@ body {
     background: #005CA8;
     min-height: 100px;
     padding: 20px;
-    width: 100vw;
 }
 .logo {
     margin-left: 95px;
@@ -52,7 +52,7 @@ body {
 
 /* Principal */
 .principal{
-    padding: 40px 0 0 0;
+    padding: 40px 20px 0 20px;
     text-align: center;
     height: 70vh;
 }
@@ -129,7 +129,7 @@ body {
     border-right: 1px solid #dee2e6!important;
 }
 .filters-area { 
-    padding: 30px 35px;
+    padding: 30px 20px;
     border-bottom: solid 1px #E6E6E6;
 }
 .filters-area h3 { 
@@ -188,7 +188,11 @@ button.active-filter::after {
 .current-filters { 
     width: 100%; 
     border-bottom: solid 1px #E6E6E6; 
-    margin-bottom:30px; }
+    margin-bottom:30px; 
+}
+.cancel-button, .toogle-button, .done-button {
+    display: none;
+}
 /* Fin Filtros */
 
 /* Paginacion */
@@ -205,6 +209,11 @@ button.active-filter::after {
 }
 .active-page {
     color: #0172cf;
+}
+.page-link:focus {
+    z-index: 2;
+    outline: 0;
+    box-shadow: none;
 }
 /* Fin Paginacion */
 
@@ -422,8 +431,6 @@ button:focus {
 }
 /* Spinner */
 .container {
-    height: 100vh;
-    width: 100vw;
     font-family: Helvetica;
 }
 
@@ -504,9 +511,28 @@ button:focus {
         content: "Loading...";
     }
 }
+@keyframes slidein {
+    from {
+        margin-left: 100%;
+    }
+  
+    to {
+        margin-left: 0%;
+    }
+}
+@keyframes slideout {
+    from {
+        margin-left: 0%;
+    }
+  
+    to {
+        margin-left: 100%; 
+        display: none;
+    }
+}
 
 /*MEDIA QUERYS*/
-@media screen and (max-width: 767px){
+@media (max-width: 767px){
     .logo {
         margin: 0 0 15px 0;
     }
@@ -517,5 +543,47 @@ button:focus {
     #header {
         text-align: center;
         justify-content: center;
+    }
+}
+
+@media (max-width: 575px){
+    .filtros {
+        display: none;
+        position: absolute;
+        background: #FFF;
+        z-index: 10;
+    }
+    .toogle-button {
+        display: inline-block;
+        margin-left: 17%;
+        margin-bottom: .5rem; 
+    }
+    .cancel-button {
+        display: inline-block;
+        margin-left: 95%;
+        font-size: 20px;
+        z-index: 100;
+    }
+    .done-button {
+        display: block;
+        background-color: #005ca8 !important;
+        color: #FFF !important;
+        padding: 10px 20px !important;
+        margin: 0 auto;
+        border-radius: 10px;
+    }
+    .slidein { 
+        display: block;
+        animation-duration: 1s;
+        animation-name: slidein;
+    }
+    .slideout {
+        display: block;
+        margin-left: 100%;
+        animation-duration: 1s;
+        animation-name: slideout;
+    }
+    .none {
+        visibility: hidden;
     }
 }

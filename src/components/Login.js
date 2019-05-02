@@ -52,9 +52,10 @@ class Login extends Component {
         }
         console.log(usuario)
         var duracionCookie = 48 * 3600
+        var cookieSesion = 7200
         document.cookie = `sesion=activa; max-age=${duracionCookie};`;
         document.cookie = `email=${this.emailRef.current.value}; max-age=${duracionCookie};`;
-        document.cookie = `estado=login; max-age=7200;`;
+        document.cookie = `estado=login; max-age=${cookieSesion};`;
         var login = false
         this.props.login(login)
     }

@@ -25,7 +25,7 @@ class Buscador extends Component {
                 <form id="form-search" className="form-inline" onSubmit={this.handleSubmit}>
                     <input type='text' ref={this.productoRef} className="form-control valid" placeholder="Buscar por producto o color" />
                     {                    
-                        (document.location.pathname === "/reacttest/build/")
+                        (document.location.pathname === "/")
                             ?   <button type="submit" className="btn btn-primary"><i className="fa fa-search"> BUSCAR</i></button>
                             :   <button type="submit" className="btn btn-primary"><i className="fa fa-search"> BUSCAR</i></button>
                     }

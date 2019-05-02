@@ -96,23 +96,25 @@ class Busqueda extends Component {
       resultado = productos;
     }
 
-    const resultados =  <div className="App slide">
-                          <div className="main">
-                              <Productos 
-                                productos={resultado}
-                                busqueda={busqueda}
-                                linea={this.state.linea}
-                                estado={this.state.estado}
-                              />
-                          </div>
-                          <div className="filtros">
-                              <Filtros 
-                                lineas={lineas}
-                                estados={estados}
-                                filtrosLinea={this.filtrosLinea}
-                                filtrosEstado={this.filtrosEstado}
-                                borrarFiltro={this.borrarFiltro}
-                              />
+    const resultados =  <div className="container-fluid slide">
+                          <div className="row">
+                            <div id="filtros" className="filtros col-sm-3 col-lg-2">
+                                <Filtros 
+                                  lineas={lineas}
+                                  estados={estados}
+                                  filtrosLinea={this.filtrosLinea}
+                                  filtrosEstado={this.filtrosEstado}
+                                  borrarFiltro={this.borrarFiltro}
+                                />
+                            </div>
+                            <div className="main col-12 col-sm-9 col-lg-10">
+                                <Productos 
+                                  productos={resultado}
+                                  busqueda={busqueda}
+                                  linea={this.state.linea}
+                                  estado={this.state.estado}
+                                />
+                            </div>
                           </div>
                         </div>
 

@@ -106,7 +106,7 @@ class Router extends Component {
                         />
                     </div>
                     <Switch>
-                        <Route exact path="/reacttest/build/" render={() => {
+                        <Route exact path="/" render={() => {
                             return (
                                 <React.Fragment>
                                     {
@@ -121,8 +121,8 @@ class Router extends Component {
                                 </React.Fragment>
                             )
                         }} />
-                        <Route exact path="/reacttest/build/detail/:idProducto" render={(props) => {
-                            const idProducto = props.location.pathname.replace('/reacttest/build/detail/', '')
+                        <Route exact path="/detail/:idProducto" render={(props) => {
+                            const idProducto = props.location.pathname.replace('/detail/', '')
                             return (
                                 <SingleProducto 
                                     idProducto={idProducto}
