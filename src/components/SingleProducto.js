@@ -25,21 +25,14 @@ class SingleProducto extends Component {
                     producto: res.data.producto[0],
                     existencia: res.data.existencia
                 }, () => {
-                    if (this.props.lineas.length === 0 | this.props.estados.length === 0) {
-                        this.obtenerLineas()
-                    } else {
-                        this.setState({
-                            cargando: false
-                        })
-                    }
+                    this.obtenerLineas()
                 })
-            })
+        })
     }
     obtenerLineas = () => {
         let url = `http://lab.besign.com.ve/flamuko/html/api/show/lineas`
         axios.get(url)
             .then(res => {
-                console.log(res.data)
                 this.setState({
                     lineas: res.data
                 }, () => {
@@ -51,39 +44,23 @@ class SingleProducto extends Component {
         let url = `http://lab.besign.com.ve/flamuko/html/api/show/estados`
         axios.get(url)
             .then(res => {
-                console.log(res.data)
                 this.setState({
                     estados: res.data,
                     cargando: false
                 })
             })
     }
-
-    obtenerIdLinea = (linea) => {
-    }
-
-    obtenerIdEstado = (estado) => {
-    }
     render() { 
         const {nombre} = this.state.producto
-        const producto =    <div className="App slide">
-                                <div className="filtros">
-                                {
-                                    (this.props.estados.length > 0)
-                                        ?   <Filtros 
-                                                lineas={this.props.lineas}
-                                                estados={this.props.estados}
-                                                linea={this.obtenerIdLinea}
-                                                estado={this.obtenerIdEstado}
-                                            />
-                                        :   <Filtros 
-                                                lineas={this.state.lineas}
-                                                estados={this.state.estados}
-                                            />
-                                }
+        const producto =    <div className="App slide row">
+                                <div id="filtros" className="filtros col-sm-3 col-lg-2">
+                                    <Filtros 
+                                        lineas={this.state.lineas}
+                                        estados={this.state.estados}
+                                    />
                                 </div>
-                                <div className="subp2 main">
-                                    <div className="row product-display">
+                                <div className="main col-sm-9 col-lg-10">
+                                    <div className="row product-display no-gutters">
                                         <div className="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                             <h4 className="nombre-producto">{nombre}</h4>
                                             <div className="card result-card-detail div-img">					

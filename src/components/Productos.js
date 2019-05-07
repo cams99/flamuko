@@ -135,7 +135,7 @@ class Productos extends Component {
             <React.Fragment>
                 <div className="row border-bottom resul1 align-items-center">
                     <h6>{productos.length} resultados para <span>{busqueda}</span></h6>
-                    <span className="toogle-button" onClick={this.toogleFiltros}>Aplicar Filtros  <i class="fas fa-bars"></i></span>
+                    <span className="toogle-button" onClick={this.toogleFiltros}>Aplicar Filtros  <i className="fas fa-bars"></i></span>
                 </div>				
                 <div className="row product-display">
                     {renderTodos}

@@ -78,8 +78,8 @@ class Login extends Component {
                         :   (this.state.registrado)
                                 ?   <div className="check-login">
                                         <form className="row justify-content-center" onSubmit={this.iniciarSesion}>
-                                            <h2 className="col-4 offset-4">Iniciar Sesión</h2>
-                                            <div className="close-window col-1 offset-3"><i onClick={this.closeWindow}className="far fa-times-circle"></i></div>
+                                            <h2 className="col-10 col-sm-4 offset-sm-4">Iniciar Sesión</h2>
+                                            <div className="close-window col-1 offset-sm-3"><i onClick={this.closeWindow}className="far fa-times-circle"></i></div>
                                             <input required className="input-form" type="email" placeholder="Email" ref={this.emailRef} /><div className="w-100"></div>                 
                                             <button type="submit" className="boton-ingresar boton-margin">Ingresar</button>   
                                         </form>
@@ -87,8 +87,8 @@ class Login extends Component {
                                     </div>
                                 :   <div className="check-login">
                                         <form className="row justify-content-center" onSubmit={this.registrarUsuario}>
-                                            <h2 className="col-4 offset-4">Regístrate</h2>
-                                            <div className="close-window col-1 offset-3"><i onClick={this.closeWindow}className="far fa-times-circle"></i></div>
+                                            <h2 className="col-10 col-sm-4 offset-sm-4">Regístrate</h2>
+                                            <div className="close-window col-1 offset-sm-3"><i onClick={this.closeWindow}className="far fa-times-circle"></i></div>
                                             <input required className="input-form" type="text" placeholder="Nombre" ref={this.nombreRef} /><div className="w-100"></div>                
                                             <input required className="input-form" type="email" placeholder="Email" ref={this.emailRef} /><div className="w-100"></div>           
                                             <input required className="input-form" type="number" placeholder="Telefono" ref={this.telefonoRef} /><div className="w-100"></div>   

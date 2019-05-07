@@ -48,6 +48,10 @@
     border-radius: 0 20px 20px 0;
     padding: 10px 0;
 }
+form a {
+    width: 100%;
+    -webkit-appearance: none !important;
+}
 /* Fin Header */
 
 /* Principal */
@@ -61,6 +65,9 @@
     border-radius: 20px;
     margin: 20px auto;
 }
+.principal #form-search button {
+    padding: 10px 0;
+} 
 /* Fin Principal */
 
 /* Productos */
@@ -173,7 +180,7 @@
 .filters-area button.active-filter, 
 .filters-area button:link.active-filter  { 
     color: #A9A9A9; 
-    width: 110px; 
+    width: 125px; 
     padding: 10px;
     text-align: start;
 }
@@ -312,6 +319,7 @@ a.call-button, a.call-button:link {
     background: none;
     color: #6c757d;
     width: 20%;
+    min-width: 100px;
     padding: 10px;
     border-radius: 24px;
     margin: 30px 0 20px;
@@ -361,6 +369,7 @@ button:focus {
     position: fixed;
     bottom: 0;
     z-index: 9999;
+    transition: opacity .5s; 
 }
 #cliente {
     font-family: Verdana, Arial, Helvetica, sans-serif;
@@ -391,32 +400,6 @@ button:focus {
 /* Fin Footer */
 
 /* Animaciones */
-.fade-appear {
-    opacity: 0;
-}
-
-.fade-appear.fade-appear-active {
-    opacity: 1;
-    transition: opacity 500ms ease-in;
-}
-
-.fade-enter {
-    opacity: 0;
-}
-
-.fade-enter.fade-enter-active {
-    opacity: 1;
-    transition: opacity 500ms ease-in ;
-}
-
-.fade-exit {
-    opacity: 1;
-}
-
-.fade-exit.fade-exit-active {
-    opacity: 0;
-    transition: opacity 500ms ease-out;
-}
 .slide {
     animation-duration: .5s;
     animation-name: slide;
@@ -584,6 +567,36 @@ button:focus {
         animation-name: slideout;
     }
     .none {
-        visibility: hidden;
+        opacity: 0;
+    }
+    .img-producto {
+        margin: 0;
+    }
+    .product-display {
+        padding: 20px;
+    }   
+}
+@media (max-width: 375px){ 
+    .toogle-button {
+        margin-left: 25%;
     }
 }
+@media (max-width: 345px){ 
+    #form-search input {
+        height: 100%;
+    }
+}
+
+@media (max-width: 325px){ 
+    .toogle-button {
+        margin-left: 20%;
+    }
+    .img-producto {
+        margin: 0;
+    }
+    .div-img {
+        width: 80%;
+    }
+}
+
+
