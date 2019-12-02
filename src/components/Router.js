@@ -8,27 +8,57 @@ import Footer from './Footer';
 import Principal from './Principal';
 
 class Router extends Component {
+    state = {
+        pathname: '',
+        filtros: {
+            lineas: [],
+            estado: ''
+        },
+        busqueda: Boolean
+    }
+    pathname = (e) => {
+        if (e !== this.state.pathname) {
+            this.setState({
+                pathname: e
+            })
+        }  
+    }
+    busqueda = e => {
+        this.setState({
+            busqueda: e        
+        })
+    }
     render() { 
         return (  
             <BrowserRouter>
                 <React.Fragment>
                     <div id="header">
-                        <Header />
+                        <Header 
+                            pathname={this.state.pathname}
+                            busqueda={this.state.busqueda}
+                        />
                     </div>
                     <Switch>
-                        <Route exact path="/" component={Principal} />
-                        <Route exact path="/:nombreProducto" render={(props) => {
-                            var nombreProducto = props.location.pathname.replace('/', '')
+                        <Route exact path="/latiendadelpintor" render={() => (
+                            <Principal
+                                busqueda={this.state.busqueda}
+                            />
+                        )} />
+                        <Route exact path="/latiendadelpintor/:nombreProducto" render={(props) => {
+                            var nombreProducto = props.location.pathname.replace('/latiendadelpintor/', '')
+                            this.pathname(document.location.pathname)
                             return ( 
                                 <React.Fragment>
                                     <Home 
-                                        busqueda={nombreProducto}                    
+                                        busqueda={nombreProducto}    
+                                        resultado={this.busqueda}  
                                     />
                                 </React.Fragment>
                             )
                         }} />
-                        <Route exact path="/detail/:idProducto" render={(props) => {
-                            const idProducto = props.location.pathname.replace('/detail/', '')
+                        <Route exact path="/latiendadelpintor/detail/:idProducto" render={(props) => {
+                            const idProducto = props.location.pathname.replace('/latiendadelpintor/detail/', '')
+                            this.pathname(document.location.pathname)
                             return (
                                 <SingleProducto 
                                     idProducto={idProducto}

@@ -14,14 +14,24 @@ class SingleTienda extends Component {
     componentDidUpdate() {
         this.obtenerCookies()
     }
+    botonesActive = () => {
+        console.log(this.state);
+
+        let button = document.querySelectorAll('.call-button')
+        for (let i = 0; i < button.length; i++) {
+            button[i].classList.add('call-button-active') 
+        }
+    }
     obtenerCookies = () => {
         var cookies = [];
         var la_cookie = document.cookie.split("; ")
+
         for (var i=0; i<la_cookie.length; i++) {
             var mi_cookie = la_cookie[i].split("=")[1]
             cookies.push(mi_cookie)
         }
-        if (cookies[2] !== this.state.estado) {
+        console.log(la_cookie);
+        if (cookies[2] !== this.state.estado && cookies[2] !== "undefined") {
             this.setState({
                 sesion: cookies[0],
                 email: cookies[1],
@@ -30,6 +40,7 @@ class SingleTienda extends Component {
         }
     }
     handleClick = () => {
+        console.log(this.state);
         if (this.state.sesion === "activa" && this.state.estado === "login") {
             this.setState({
                 login: false
@@ -42,6 +53,8 @@ class SingleTienda extends Component {
         }
     }
     login = (estado) => {
+        console.log(estado);
+        console.log(this.state);
         this.setState({
             login: estado
         })
@@ -51,20 +64,34 @@ class SingleTienda extends Component {
             email: this.state.email,
             busqueda: this.props.producto.nombre
         }
+        this.botonesActive()
         console.log(busqueda)
     }
     render() { 
-        const {valor} = this.props.tienda
-        const {nombre, direccion, telefono, telefono1} = this.props.tienda.tienda[0]
-        // switch (true) {
-        //     case valor > EXISTENCIA_NIVEL_MEDIO:
+        var {valor} = this.props.tienda
+        const {nombre, direccion, telefono /*, telefono1*/} = this.props.tienda.tienda[0]
+        const EXISTENCIA_NIVEL_MEDIO = 15
+        const EXISTENCIA_NIVEL_BAJO = 0
+        valor = parseInt(valor)
+        if (valor > EXISTENCIA_NIVEL_MEDIO) {
+            valor = 'high';
+        } else if (valor === EXISTENCIA_NIVEL_BAJO) {
+            valor = 'low';
+        } else {
+            valor = 'medium';
+        }
+        // switch (valor) {
+        //     case (valor > EXISTENCIA_NIVEL_MEDIO):
+        //         console.log("h", valor)
         //         valor = 'high';
         //         break;
-        //     case valor < EXISTENCIA_NIVEL_BAJO:
+        //     case (valor < EXISTENCIA_NIVEL_BAJO):
+        //         console.log("l", valor)
         //         valor = 'low';
         //         break;
             
         //     default:
+        //         console.log("m", valor)
         //         valor = 'medium';
         //         break;
         // }
@@ -98,34 +125,37 @@ class SingleTienda extends Component {
         return (  
             <React.Fragment>
                 <div className="col-lg-12 static">
-                    <h6><div className={`availability ${valor}`}></div> {nombre} {valor}</h6>
-                    <small>
-                        <i className="fa fa-map-marker-alt"></i> {direccion}
-                        <br/><br/>
-                    </small>
+                    <h6><div className={`availability ${valor}`}></div> {nombre}</h6>
+                    {
+                        (direccion)
+                            ?   <small>
+                                    <i className="fa fa-map-marker-alt"></i> {direccion}
+                                    <br/><br/>
+                                </small>
+                            :   ""
+                    }
                     <div className="text-right">
                     {
                         (is_cellphone)
                             ?   (this.state.sesion === "activa" && this.state.estado === "login") 
                                 ?   <a href={mensaje} onClick={this.handleClick} target="_blank"  rel="noopener noreferrer" className="call-button"><i className="fa fa-whatsapp"></i> Enviar Mensaje</a>
-                                :   <button onClick={this.handleClick} target="_blank" rel="noopener noreferrer" className="call-button"><i className="fa fa-whatsapp"></i> Enviar Mensaje</button>
+                                :   <button data-toggle="modal" data-target="#modalRegister" className="call-button"><i className="fa fa-whatsapp"></i> Enviar Mensaje</button>
                             :   (this.state.sesion === "activa" && this.state.estado === "login")
                                 ?   <a href={llamar} onClick={this.handleClick} className="call-button"><i className="fa fa-phone-volume"></i> <span> Llamar </span> </a>
-                                :   <button onClick={this.handleClick} className="call-button"><i className="fa fa-phone-volume"></i> <span> Llamar </span> </button> 
+                                //:   <button onClick={this.handleClick} className="call-button"><i className="fa fa-phone-volume"></i> <span> Llamar </span> </button> 
+                                :   <button data-toggle="modal" data-target="#modalRegister" className="call-button"><i className="fa fa-phone-volume"></i> <span> Llamar </span> </button> 
                     }
                     <br/>
                     </div>
                     <hr/>
                 </div>
                 {
-                    (this.state.login && this.state.estado !== "login")
-                        ?   <div className="login-form">
-                                <Login 
-                                    producto={this.props.producto.nombre}
-                                    login={this.login}
-                                />
-                            </div>
-                        :   ""
+                    <div className="modal fade" id="modalRegister" tabIndex="-1" role="dialog" aria-labelledby="modalRegister" aria-hidden="true">
+                        <Login 
+                            producto={this.props.producto.nombre}
+                            login={this.login}
+                        />
+                    </div>
                 }
             </React.Fragment>
         );

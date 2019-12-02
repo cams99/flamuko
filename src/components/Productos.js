@@ -77,15 +77,6 @@ class Productos extends Component {
             })
         }
     }   
-
-    getRandomColor = () => {
-        var letters = '0123456789ABCDEF';
-        var color = '#';
-        for (var i = 0; i < 6; i++) {
-          color += letters[Math.floor(Math.random() * 16)];
-        }
-        return color;
-    }
     toogleFiltros = () => {
         document.getElementById('filtros').setAttribute('class', 'filtros slidein col-sm-3 col-lg-2');
         document.getElementById('besign-footer').setAttribute('class', 'none');
@@ -103,13 +94,15 @@ class Productos extends Component {
         const currentProductos = productos.slice(indexOfFirstTodo, indexOfLastTodo);
   
         const renderTodos = currentProductos.map((producto, index) => {
-          return (
-            <Producto  
-                key={index}
-                producto={producto}
-                color={this.getRandomColor()}                                         
-            />
-          );
+            return (
+                //si no tiene color asociado no se mostrara en la muestra de resultados
+                (producto.color !== "" )
+                    ?   <Producto  
+                            key={index}
+                            producto={producto}                                     
+                        />
+                    :   ""
+            );
         });
   
         // Logic for displaying page numbers
@@ -130,11 +123,10 @@ class Productos extends Component {
             </li>
           );
         });
-
         return (  
             <React.Fragment>
                 <div className="row border-bottom resul1 align-items-center">
-                    <h6>{productos.length} resultados para <span>{busqueda}</span></h6>
+                    <h6>{productos.length} resultados para <span>{busqueda.replace('/', '')}</span></h6>
                     <span className="toogle-button" onClick={this.toogleFiltros}>Aplicar Filtros  <i className="fas fa-bars"></i></span>
                 </div>				
                 <div className="row product-display">
